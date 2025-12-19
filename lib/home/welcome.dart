@@ -11,12 +11,18 @@ class Welcome extends StatefulWidget {
 }
 
 class _WelcomeState extends State<Welcome> {
+bool _loading = false;
+Position? _location;
+
   @override
   void initState() {
     super.initState();
+    _loading = true;
     _getLocation().then((position) {
+      _location = position;
       debugPrint(position.toString());
       _load(position.latitude.toString(), position.longitude.toString());
+      _loading = false;
     });
   }
 
